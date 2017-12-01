@@ -99,3 +99,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# tjones settings
+kernel-4b6ac912-ff78-4be8-8c97-d684072291e2.json
+.vscode/tags
