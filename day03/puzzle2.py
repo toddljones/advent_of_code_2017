@@ -28,7 +28,12 @@ Your puzzle input is still 347991.
 
 """
 
+
+# imports
+from functools import reduce
+
 ubound = 347991
+# ubound = 806
 
 # add the points into a vector array of x, y, value
 x = 0
@@ -39,8 +44,8 @@ miny = 0
 maxy = 0
 direction = 'right'
 value = 1
-array = [0, 0, 1]  # seed the array with the first item
-while value < ubound:
+box_array = [[0, 0, 1]]  # seed the array with the first item
+while value <= ubound:
     # calculate direction
     if direction == 'right':
         x = x + 1  # make the positional move
@@ -63,8 +68,27 @@ while value < ubound:
             direction = 'right'
             miny = y
     # calculate the value
-        # filter the list to all items that are +/- 1 from the x and y
-        # sum the values for the filtered set
-        
-print(x, y, value)
-print(abs(x) + abs(y))
+    # filter the list to all items that are +/- 1 from the x and y
+    # sum the values for the filtered set
+    value = 0
+    # print('x=', x)
+    # print('y=', y)
+    sublist = list(filter(lambda b: (abs(b[0]-x) <= 1 and abs(b[1]-y) <= 1), box_array))
+    # print('filtered list=', sublist)
+    for item in sublist:
+        value = value + item[2]
+    box_array.append([x, y, value])
+    # print('new output=', box_array)
+    # input('press enter to continue')
+print(box_array)
+
+"""
+output:
+[Running] python "/home/toddl/projects/advent_of_code_2017/day03/puzzle2.py"
+[[0, 0, 1], [1, 0, 1], [1, 1, 2], [0, 1, 4], [-1, 1, 5], [-1, 0, 10], [-1, -1, 11], [0, -1, 23], [1, -1, 25], [2, -1, 26], [2, 0, 54], [2, 1, 57], [2, 2, 59], [1, 2, 122], [0, 2, 133], [-1, 2, 142], [-2, 2, 147], [-2, 1, 304], [-2, 0, 330], [-2, -1, 351], [-2, -2, 362], [-1, -2, 747], [0, -2, 806], [1, -2, 880], [2, -2, 931], [3, -2, 957], [3, -1, 1968], [3, 0, 2105], [3, 1, 2275], [3, 2, 2391], [3, 3, 2450], [2, 3, 5022], [1, 3, 5336], [0, 3, 5733], [-1, 3, 6155], [-2, 3, 6444], [-3, 3, 6591], [-3, 2, 13486], [-3, 1, 14267], [-3, 0, 15252], [-3, -1, 16295], [-3, -2, 17008], [-3, -3, 17370], [-2, -3, 35487], [-1, -3, 37402], [0, -3, 39835], [1, -3, 42452], [2, -3, 45220], [3, -3, 47108], [4, -3, 48065], [4, -2, 98098], [4, -1, 103128], [4, 0, 109476], [4, 1, 116247], [4, 2, 123363], [4, 3, 128204], [4, 4, 130654], [3, 4, 266330], [2, 4, 279138], [1, 4, 295229], [0, 4, 312453], [-1, 4, 330785], [-2, 4, 349975]]
+
+the answer is: 349975
+
+That's the right answer! You are one gold star closer to debugging the printer.
+
+"""
